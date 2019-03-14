@@ -41,7 +41,7 @@
   src: local("Source Sans Pro Bold"), local("SourceSansPro-Bold"), url("../fonts/SourceSansPro-Bold.eot']}?#iefix") format("embedded-opentype"), url("../fonts/SourceSansPro-Bold.woff2") format("woff2"), url("../fonts/SourceSansPro-Bold.woff") format("woff"), url("../fonts/SourceSansPro-Bold.ttf") format("truetype"), url("../fonts/SourceSansPro-Bold.svg']}#SourceSansPro-Bold") format("svg");
   /* Legacy iOS */ }
 @font-face {
-  font-family: '#634b89';
+  font-family: '#337882';
   src: url('../fonts/gadugib.ttf');
 }
 @font-face {
@@ -66,7 +66,7 @@
   -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.05); }
   .card:hover {
-    border: 1px solid #634b89;
+    border: 1px solid #337882;
     /*-moz-box-shadow: 0 0 7px 0 #999999;
     -webkit-box-shadow: 0 0 7px 0 #999999;
     box-shadow: 0 0 7px 0 #999999;*/
@@ -92,7 +92,7 @@
       padding: 7px 0;
       font-size: 26px;
       color: #3e3e3d;
-      font-family: '#634b89';
+      font-family: '#337882';
     }
   .card.card-w-title .input-humas-group {
     background: #f5f5f5;
@@ -195,7 +195,7 @@
   .dashboard .weather-box {
     height: 100%; }
     .dashboard .weather-box .left {
-      background-image: url("../images/#634b89-blue2x.png");
+      background-image: url("../images/#337882-blue2x.png");
       background-size: 100% 100%; }
       .dashboard .weather-box .left > div {
         height: 50%;
@@ -262,7 +262,7 @@
       -webkit-border-radius: 3px;
       border-radius: 3px;
       padding: 2px 4px;
-      background-color: #634b89;
+      background-color: #337882;
       font-weight: bold;
       color: #ffffff;
       display: inline-block;
@@ -392,7 +392,7 @@
             -webkit-border-radius: 3px;
             border-radius: 3px; }
             .dashboard .contacts ul li .contact-actions .connection-status.online {
-              background-color: #634b89; }
+              background-color: #337882; }
             .dashboard .contacts ul li .contact-actions .connection-status.offline {
               background-color: #f3745a;
               color: #ffffff; }
@@ -573,7 +573,7 @@
       border-radius: 50%;
       display: inline-block; }
       .dashboard .activity-feed .knob.income {
-        border: 10px solid #634b89;
+        border: 10px solid #337882;
         border-left-color: #b4ea9c; }
       .dashboard .activity-feed .knob.tax {
         border: 10px solid #fbc948;
@@ -639,7 +639,7 @@
           line-height: inherit; }
         .dashboard .control-panel .right-controls a:hover {
           color: #ffffff;
-          background-color: #634b89; }
+          background-color: #337882; }
 
 @media (max-width: 640px) {
   .dashboard .control-panel .right-controls a {
@@ -655,7 +655,7 @@
   height: 100%;
 }*/
 .login-text h1{
-  font-family: '#634b89';
+  font-family: '#337882';
   text-align: center;
   font-size: 45px;
 }
@@ -1072,7 +1072,7 @@
     top: 50px;
     text-align: center;
     padding: 0 0 6px 0;
-    border-bottom: 10px solid #634b89;
+    border-bottom: 10px solid #337882;
     z-index: 100;
     box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.15); }
     .landing-body .landing-wrapper #header.menu-active > div ul li {
@@ -1172,7 +1172,7 @@ body {
     float: left; }
     .layout-wrapper .topbar #menu-button:hover {
       background-color: #f5f5f5;
-      color: #634b89; }
+      color: #337882; }
     .layout-wrapper .topbar #menu-button span {
       font-size: 36px;
       line-height: inherit;
@@ -1192,13 +1192,13 @@ body {
       margin-top: -7px; }
     .login-body .morpheus-logo-link .morpheus-logo-text,  
     .layout-wrapper .topbar .morpheus-logo-link .morpheus-logo-text {
-      color: #634b89;
+      color: #337882;
       font-size: 22px;
       font-weight: 700;
       padding-left: 5px; }
     .login-body .morpheus-logo-link .morpheus-logo-text span,
     .layout-wrapper .topbar .morpheus-logo-link .morpheus-logo-text span{
-      color: #634b89; }
+      color: #337882; }
   .layout-wrapper .topbar #topbar-menu-button {
     font-size: 28px;
     margin: 12px 20px 0 0;
@@ -1238,7 +1238,7 @@ body {
           position: absolute;
           right: -5px;
           top: -5px;
-          background-color: #634b89;
+          background-color: #337882;
           color: #ffffff;
           padding: 2px 4px;
           display: block;
@@ -1311,7 +1311,7 @@ body {
           .layout-wrapper .topbar .topbar-menu > li > ul a .fa, .layout-wrapper .topbar .topbar-menu > li > ul a img, .layout-wrapper .topbar .topbar-menu > li > ul a span {
             vertical-align: middle; }
           .layout-wrapper .topbar .topbar-menu > li > ul a .topbar-submenuitem-badge {
-            background-color: #634b89;
+            background-color: #337882;
             padding: 1px 6px;
             color: #ffffff;
             float: right; }
@@ -1518,7 +1518,7 @@ body {
             width: 16px;
             height: 16px;
             text-align: center;
-            background-color: #634b89;
+            background-color: #337882;
             color: #ffffff;
             font-size: 11px;
             font-weight: 700;
@@ -1772,7 +1772,7 @@ body {
     .layout-tabmenu-content .calendar-tab ul li .calendar-event-date {
       float: left;
       color: #ffffff;
-      background-color: #634b89;
+      background-color: #337882;
       width: 48px;
       height: 48px;
       text-align: center;
@@ -1799,7 +1799,7 @@ body {
       .layout-tabmenu-content .calendar-tab ul li .calendar-event-detail .calendar-event-rsvp {
         display: block; }
         .layout-tabmenu-content .calendar-tab ul li .calendar-event-detail .calendar-event-rsvp.calendar-event-rsvp-yes {
-          color: #634b89; }
+          color: #337882; }
         .layout-tabmenu-content .calendar-tab ul li .calendar-event-detail .calendar-event-rsvp.calendar-event-rsvp-maybe {
           color: #fbc948; }
 .layout-tabmenu-content .projects-tab ul {
@@ -1847,7 +1847,7 @@ body {
   margin-top: -30px;
   position: absolute;
   vertical-align: middle;
-  background: #634b89;
+  background: #337882;
   width: 60px;
   height: 60px;
   border-radius: 50%;
