@@ -1513,10 +1513,13 @@
               border-left: 4px solid transparent;
               border-right: 4px solid transparent;}
             .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-submenu-content .navigation-menu li.active-menuitem > a {
-              color: #ffffff; font-weight: bold;
-            border-left-color:#ffffff }
+              color: #FFCB00;
+              font-weight: bold;
+              border-left-color:#ffffff;
+              }
               .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-submenu-content .navigation-menu li.active-menuitem > a i:first-child {
-                color: #ffffff; }
+                color: #FFCB00;
+                }
               .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-submenu-content .navigation-menu li.active-menuitem > a i:last-child {
                 -webkit-transform: rotate(-180deg);
                 -moz-transform: rotate(-180deg);
