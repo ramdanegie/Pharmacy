@@ -32,14 +32,14 @@ class  LoginController extends Controller
 	use JsonResponse;
 	public function signIn(Request $request)
 	{
-		$loginUser = DB::table('loginuser_s')
-			->where('katasandi', '=', $this->generateSHA1($request->input('kataSandi')))
-			->Where('namauser','=',$request->input('namaUser'))
-			->where('statusenabled',true);
+		$loginUser = DB::table('M_LoginUser')
+			->where('KataSandi', '=', $this->generateSHA1($request->input('kataSandi')))
+			->Where('NamaUser','=',$request->input('namaUser'))
+			->where('Flag',true);
 		$loginUser = $loginUser->get();
 		if($loginUser->count() > 0){
-			$idPegawai = $loginUser[0]->objectpegawaifk;
-			$result['kdUser'] = $loginUser[0]->id;
+			$idPegawai = $loginUser[0]->KdPegawai;
+			$result['kdUser'] = $loginUser[0]->KdUser;
 			$result['namaUser'] = $namaUser = $request->input('namaUser');
 			$result['kataSandi'] = $password = $this->generateSHA1($request->input('kataSandi'));
 			$result['pegawai'] = $this->getPegawai($idPegawai,null);
@@ -59,9 +59,9 @@ class  LoginController extends Controller
 		$class = new Builder();
 		$signer = new Sha256();
 		$token = $class->setHeader('alg','HS512')
-			->setIssuedAt(time())// Configures the time that the token was issued (iat claim)
-			->setNotBefore(time() + 1)// Configures the time that the token can be used (nbf claim)
-			->setExpiration(time() + 36000)// Configures the expiration time of the token (exp claim)
+			// ->setIssuedAt(time())// Configures the time that the token was issued (iat claim)
+			// ->setNotBefore(time() + 1)// Configures the time that the token can be used (nbf claim)
+			// ->setExpiration(time() + 36000)// Configures the expiration time of the token (exp claim)
 			->set('kdUser', $kdUser)  // Configures a new claim, called "kdUser"
 			->set('namaUser', $namaUser)
 			->set('kdPegawai', $idPegawai)
@@ -75,9 +75,9 @@ class  LoginController extends Controller
 		return sha1($pass);
 	}
 	public function getPegawai($idPegawai, $kdProfile = null){
-		$pegawai = DB::table('pegawai_m')
+		$pegawai = DB::table('M_Pegawai')
 			->select('*')
-			->where('id','=',$idPegawai);
+			->where('KdPegawai','=',$idPegawai);
 		if($kdProfile){
 			$pegawai->where('kdprofile','=', $kdProfile);
 		}
@@ -88,14 +88,14 @@ class  LoginController extends Controller
 	{
 		$result['code'] = 500;
 		$result['message'] = 'You have not login';
-		$queryLogin = DB::table('loginuser_s')
-            ->where('katasandi', '=', $request->input('encrypted'))
-			->where('namauser', '=', $request->input('namaUser'));
+		$queryLogin = DB::table('M_LoginUser')
+            ->where('KataSandi', '=', $request->input('encrypted'))
+			->where('NamaUser', '=', $request->input('namaUser'));
 		$loginUser = $queryLogin->get();
 		if(count($loginUser) > 0){
 			$result['message'] = 'Logout Success';
-			$result['id'] = $loginUser[0]->id;
-			$result['namaUser'] = $loginUser[0]->namauser;
+			$result['id'] = $loginUser[0]->KdUser;
+			$result['namaUser'] = $loginUser[0]->NamaUser;
 			$result['code'] = 200;
 			$result['as'] = 'ramdanegie';
 		}
@@ -135,15 +135,15 @@ class  LoginController extends Controller
 		return $this->setStatusCode($result['status'])->respond($result, $transMessage);
 	}
 	public function getKelompokUser($idPegawai, $kdProfile = null){
-		$kelompokuser = DB::table('kelompokuser_s as kl')
-			->join('loginuser_s as log','log.objectkelompokuserfk','=','kl.id')
+		$kelompokuser = DB::table('M_KelompokUser as kl')
+			->join('M_LoginUser as log','log.KdKelompokUser','=','kl.KdKelompokUser')
 			->select('kl.*')
-			->where('log.objectpegawaifk','=',$idPegawai);
+			->where('log.KdPegawai','=',$idPegawai);
 		if($kdProfile){
 			$kelompokuser->where('kl.kdprofile','=', $kdProfile);
 		}
 		$kelompokuser = $kelompokuser->first();
-		return $kelompokuser->kelompokuser;
+		return $kelompokuser->KelompokUser;
 	}
 
 }
