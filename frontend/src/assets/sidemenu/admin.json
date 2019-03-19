@@ -4,24 +4,10 @@
         "icon": "fa fa-fw fa-bars",
         "items": [
             {
-                "label": "TES",
-                "icon": "fa fa-fw fa-columns",
+                "label": "Agama",
+                "icon": "fa fa-fw fa-sitemap",
                 "routerLink": [
-                    "/tes"
-                ]
-            },
-            {
-                "label": "Profile",
-                "icon": "fa fa-fw fa-columns",
-                "routerLink": [
-                    "/profile"
-                ]
-            },
-            {
-                "label": "Alamat",
-                "icon": "fa fa-fw fa-columns",
-                "routerLink": [
-                    "/alamat"
+                    "/Agama"
                 ]
             },
             {
@@ -53,13 +39,6 @@
                 ]
             },
             {
-                "label": "Jenis Transaksi",
-                "icon": "fa fa-fw fa-minus-square-o",
-                "routerLink": [
-                    "/jenis-transaksi"
-                ]
-            },
-            {
                 "label": "Kelompok Produk",
                 "icon": "fa fa-fw fa-circle-o-notch",
                 "routerLink": [
@@ -67,14 +46,7 @@
                 ]
             },
             {
-                "label": "Kode Generate",
-                "icon": "fa fa-fw fa-area-chart",
-                "routerLink": [
-                    "/kode-generate"
-                ]
-            },
-            {
-                "label": "Map Produk To Satuan Standar",
+                "label": "Map Produk To Satuan",
                 "icon": "fa fa-fw fa-arrow-circle-o-up",
                 "routerLink": [
                     "/map-produk-to-satuan-standar"
@@ -95,7 +67,7 @@
                 ]
             },
             {
-                "label": "Satuan Standar",
+                "label": "Satuan",
                 "icon": "fa fa-fw fa-sign-in",
                 "routerLink": [
                     "/satuan-standar"
@@ -106,13 +78,6 @@
                 "icon": "fa fa-fw fa-exclamation-circle",
                 "routerLink": [
                     "/supplier"
-                ]
-            },
-            {
-                "label": "Toko",
-                "icon": "fa fa-fw fa-times",
-                "routerLink": [
-                    "/toko"
                 ]
             }
         ]
@@ -157,6 +122,11 @@
                 ]
             }
         ]
+    },
+    {
+        "label": "Laporan",
+        "icon": "fa fa-fw fa-print",
+        "items": []
     },
     {
         "label": "Pengaturan",
