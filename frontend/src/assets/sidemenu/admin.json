@@ -7,7 +7,7 @@
                 "label": "Agama",
                 "icon": "fa fa-fw fa-sitemap",
                 "routerLink": [
-                    "/Agama"
+                    "/agama"
                 ]
             },
             {
