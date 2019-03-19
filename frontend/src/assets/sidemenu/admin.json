@@ -4,6 +4,20 @@
         "icon": "fa fa-fw fa-bars",
         "items": [
             {
+                "label": "TES",
+                "icon": "fa fa-fw fa-columns",
+                "routerLink": [
+                    "/tes"
+                ]
+            },
+            {
+                "label": "Profile",
+                "icon": "fa fa-fw fa-columns",
+                "routerLink": [
+                    "/profile"
+                ]
+            },
+            {
                 "label": "Alamat",
                 "icon": "fa fa-fw fa-columns",
                 "routerLink": [

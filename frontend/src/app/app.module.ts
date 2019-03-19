@@ -1,3 +1,4 @@
+import { ProfileComponent } from './page/modules/master/profile/profile.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -72,6 +73,7 @@ import { ProdukComponent } from './page/modules/master/produk/produk.component';
         // ...globalComps,
         ...pagesAuth,
         ProdukComponent,
+         ProfileComponent,
 
   
         // ...pagesMaster,

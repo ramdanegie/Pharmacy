@@ -1,2 +1,3 @@
 cara generate component --->  ng g c (*namafolder/namafile) --skip--import
 cara build production ---> npm run-script build
+ng g c /page/modules/apotik/{{tnamafile}} --skip--import

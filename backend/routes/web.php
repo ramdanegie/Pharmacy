@@ -26,6 +26,8 @@ $router->get('/', function () use ($router) {
 });
 $router->group(['prefix' => 'service'/*, 'middleware' => 'auth'*/], function ($app) {
 
+
+	$app->get('tes/get-daftar-tes', 'Master\TesIqbalController@getDaftarTes');
 	/* Example */
 	$app->get('dashboard/count', 'Transaksi\DashboardController@countData');
 
@@ -168,6 +170,8 @@ $router->group(['prefix' => 'service'/*, 'middleware' => 'auth'*/], function ($a
 	    $app->post('sign-out', 'Core\LoginController@signOut');
 	    $app->get('change-password', 'Core\LoginController@changePassword');
     });
+
+
 
 });
 

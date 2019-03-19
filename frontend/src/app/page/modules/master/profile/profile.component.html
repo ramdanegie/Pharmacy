@@ -1,0 +1,169 @@
+<div class="card card-w-title">
+  <div class="card card-form-header">
+    <h1>Profil</h1>
+  </div>
+  <form [formGroup]="formGroup">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <p-fieldset legend="Profil" [toggleable]="true">
+          <div class="ui-g-6 ui-md-4 ">
+            <div class="ui-g">
+              <div class="ui-g-4 ui-sm-4">Nama Apotek </div>
+              <div class="ui-g-8 ui-sm-4"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-4">Pemilik</div>
+              <div class="ui-g-8 ui-sm-4"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">Alamat</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">Kota/Kabpuaten</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">Provinsi</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">Telepon</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">E-Mail</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">Kode Pos</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">NPWP</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">Metode Stok Barang</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">Metode Harga Barang</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+
+              <div class="ui-g-4 ui-sm-6">Pesan</div>
+              <div class="ui-g-8 ui-sm-6"><b>:ganti</b></div>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-4">
+            <p-galleria [images]="image" panelWidth="500" panelHeight="313" showCaption="true"></p-galleria>
+          </div>
+        </p-fieldset>
+      </div>
+      <div class="ui-g-12 ">
+        <div class="ui-g-1">
+          <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Tambah"></button>
+        </div>
+      </div>
+      <p-dialog header="Tambah" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+        [width]="750" [minWidth]="100" [minHeight]="80" [baseZIndex]="8000" [positionTop]="80" appendTo="body">
+        <div class="ui-g-12">
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+              <p-fieldset legend="Masukan Data" [toggleable]="true">
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Nama Apotek</label>
+                    <input type="text" pInputText formControlName="namaapotek" />
+                  </div>
+                </div>
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Pemilik</label>
+                    <input type="text" pInputText formControlName="pemilik" />
+                  </div>
+                </div>
+                <div class="ui-g-12">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Alamat</label>
+                    <textarea [rows]="5" [cols]="1" pInputTextarea formControlName="alamat"></textarea>
+                  </div>
+                </div>
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Kota/Kabupaten</label>
+                    <input type="text" pInputText formControlName="kotakabupaten" />
+                  </div>
+                </div>
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Porpinsi</label>
+                    <input type="text" pInputText formControlName="provinsi" />
+                  </div>
+                </div>
+
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Telepon</label>
+                    <input type="text" pInputText formControlName="telepon" />
+                  </div>
+                </div>
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">E-mail</label>
+                    <input type="text" pInputText formControlName="email" />
+                  </div>
+                </div>
+
+
+
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Kode Pos</label>
+                    <input type="text" pInputText formControlName="kodepos" />
+                  </div>
+                </div>
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Npwp</label>
+                    <input type="text" pInputText formControlName="npwp" />
+                  </div>
+                </div>
+
+                <div class="ui-g-12">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Pesan</label>
+                    <textarea [rows]="2" [cols]="1" pInputTextarea formControlName="pesan"></textarea>
+                  </div>
+                </div>
+
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Metode Stok Barang</label>
+                    <input type="text" pInputText formControlName="metodestok" />
+                  </div>
+                </div>
+                <div class="ui-g-6">
+                  <div class="ui-g-12 ui-md-12">
+                    <label for="input">Metode Harga Barang</label>
+                    <input type="text" pInputText formControlName="metodeharga" />
+                  </div>
+                </div>
+
+                
+                <div class="ui-g-12">
+                  <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" multiple="false"
+                    accept="image/*" maxFileSize="10000000">
+                    <ng-template pTemplate="content">
+                      <ul *ngIf="imagepreview.length">
+                        <li *ngFor="let file of imagepreview">{{file.name}} - {{file.size}} bytes</li>
+                      </ul>
+                    </ng-template>
+                  </p-fileUpload>
+                </div>
+              </p-fieldset>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-3 ui-g-offset-6">
+                <button pButton type="submit" (click)="save()" label="Simpan" icon="fa fa-save"></button>
+              </div>
+              <div class="ui-g-3">
+                <button pButton type="button" (click)="displayDialog = false" label="Tutup"
+                  icon="fa fa-angle-left"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-dialog>
+    </div>
+  </form>

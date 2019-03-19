@@ -1,0 +1,26 @@
+<div class="ui-g-12">
+	<form [formGroup]="formGroup">
+		<div class="ui-g-3">
+			<span class="ui-float-label">
+				<input id="float-input" formControlName="nik" type="text" size="30" pInputText>
+				<label for="float-input">NIK</label>
+			</span>
+		</div>
+		<div class="ui-g-3">
+			<span class="ui-float-label">
+				<input id="float-input" formControlName="nama" type="text" size="30" pInputText>
+				<label for="float-input">Nama</label>
+			</span>
+		</div>
+		<div class="ui-g-1">
+			<button pButton type="submit" (click)="cari()" label="Cari" icon="fa fa-save"></button>
+		</div>
+	</form>
+</div>
+<div class="ui-g-12">
+	<h3 class="first">Basic</h3>
+	<p-dataTable [value]="dataSource" [loading]="loading">
+		<p-column field="NIK" header="NIK"></p-column>
+		<p-column field="Nama" header="Nama Lengkap"></p-column>
+	</p-dataTable>
+</div>
