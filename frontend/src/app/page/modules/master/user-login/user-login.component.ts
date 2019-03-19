@@ -66,10 +66,10 @@ export class UserLoginComponent implements OnInit {
 
 	onRowSelect(event) {
 		let selected = event.data
-		this.formGroup.get('idUser').setValue(selected.id);
-		this.formGroup.get('namaUser').setValue(selected.namauser)
-		this.formGroup.get('pegawai').setValue({ 'id': selected.objectpegawaifk, 'namalengkap': selected.namalengkap });
-		this.formGroup.get('kdKelompokUser').setValue(selected.objectkelompokuserfk);
+		this.formGroup.get('idUser').setValue(selected.KdUser);
+		this.formGroup.get('namaUser').setValue(selected.NamaUser)
+		this.formGroup.get('pegawai').setValue({ 'KdPegawai': selected.KdPegawai, 'NamaPegawai': selected.NamaPegawai });
+		this.formGroup.get('kdKelompokUser').setValue(selected.KdKelompokUser);
 		this.formGroup.get('kataSandi')['disable']();
 	}
 
@@ -97,11 +97,11 @@ export class UserLoginComponent implements OnInit {
 		// 	message: 'Tambahkan data?',
 		// 	accept: () => {
 		this.httpService.post('master/loginuser/save-login-user', this.formGroup.value).subscribe(response => {
-			this.alertService.success('Success', 'Berhasil Tambah Data');
+			// this.alertService.success('Success', 'Berhasil Tambah Data');
 			this.reset();
 			this.get()
 		}, error => {
-			this.alertService.error('Error', 'Terjadi kesalahan');
+			// this.alertService.error('Error', 'Terjadi kesalahan');
 		});
 		// 	}
 		// });
@@ -111,11 +111,11 @@ export class UserLoginComponent implements OnInit {
 			message: 'Yakin mau Menghapus data?',
 			accept: () => {
 				this.httpService.post('master/loginuser/delete-login-user', this.formGroup.value).subscribe(response => {
-					this.alertService.success('Success', 'Berhasil Menghapus Data');
+		
 					this.reset();
 					this.get()
 				}, error => {
-					this.alertService.error('Error', 'Terjadi kesalahan');
+					// this.alertService.error('Error', 'Terjadi kesalahan');
 				});
 			}
 		});
@@ -129,7 +129,7 @@ export class UserLoginComponent implements OnInit {
 			this.listKelompokUser.push({ label: '--Pilih--', value: '' });
 			// this.listKelompokUser.push({ label: '-', value: '-'});
 			getData.forEach(response => {
-				this.listKelompokUser.push({ label: response.kelompokuser, value: response.id });
+				this.listKelompokUser.push({ label: response.KelompokUser, value: response.KdKelompokUser });
 				// JSON.stringify(this.listKelompokUser)
 			});
 		}, error => {

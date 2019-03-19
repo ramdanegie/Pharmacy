@@ -10,11 +10,12 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Model\Master\DetailJenisProduk_M;
-use App\Model\Master\JenisKelamin_M;
+use App\Model\Master\_MJenisKelamin;
 use App\Model\Master\JenisProduk_M;
 use App\Model\Master\JenisTransaksi_M;
-use App\Model\Master\SatuanStandar_M;
-use App\Model\Master\Supplier_M;
+use App\Model\Master\_MSatuan;
+use App\Model\Master\_MSupplier;
+use App\Model\Master\M_Supplier;
 use App\Model\Master\Toko_M;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;
@@ -28,11 +29,11 @@ class  SupplierController extends Controller
 
 	public function get(Request $request)
 	{
-		$data = DB::table('supplier_m as tk')
-			->leftJoin('alamat_m as alm','alm.id','=','tk.alamatfk')
-			->select('tk.*','alm.alamat','alm.kota','alm.kabupaten','alm.kecamatan')
-			->where('tk.statusenabled', true)
-			->orderBy('tk.namasupplier')
+		$data = DB::table('M_Supplier')
+//			->leftJoin('alamat_m as alm','alm.id','=','tk.alamatfk')
+			->select('*')
+			->where('Flag', true)
+			->orderBy('NamaSupplier')
 			->get();
 
 		$result['code'] = 200;
@@ -46,19 +47,19 @@ class  SupplierController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-
-			$idMax = Supplier_M::max('id') + 1;
-			if ($request['idSupplier'] == null) {
-				$log = new Supplier_M();
-				$log->id = $idMax;
-				$log->statusenabled = true;
+			if ($request['KdSupplier'] == null) {
+				$idMax = (int) M_Supplier::max('KdSupplier') + 1;
+				$log = new M_Supplier();
+				$log->KdSupplier = $idMax;
+				$log->Flag = true;
 			} else {
-				$log = Supplier_M::where('id', $request['idSupplier'])->first();
+				$log = M_Supplier::where('KdSupplier', $request['KdSupplier'])->first();
 			}
-			$log->namasupplier = $request['namaSupplier'];
-			$log->alamatfk = $request['kdAlamat'];
-			$log->nohp = $request['noHp'];
-			$log->notlp = $request['noTlp'];
+			$log->NamaSupplier = $request['NamaSupplier'];
+			$log->Alamat = $request['Alamat'];
+			$log->Email = $request['Email'];
+			$log->Owner = $request['Owner'];
+			$log->NoTelepon = $request['NoTelepon'];
 			$log->save();
 
 			$transStatus = 'true';
@@ -74,7 +75,7 @@ class  SupplierController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Simpan Supplier Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -89,8 +90,8 @@ class  SupplierController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-			Supplier_M::where('id', $request['idSupplier'])->update(
-				['statusenabled' => false]
+			M_Supplier::where('KdSupplier', $request['KdSupplier'])->update(
+				['Flag' => false]
 			);
 
 			$transStatus = 'true';
@@ -106,7 +107,7 @@ class  SupplierController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Hapus Supplier Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,

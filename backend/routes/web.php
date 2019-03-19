@@ -24,7 +24,19 @@ $router->get('/versi', function () use ($router) {
 $router->get('/', function () use ($router) {
 	return 'Uhuy Berhasil';
 });
+
 $router->group(['prefix' => 'service'/*, 'middleware' => 'auth'*/], function ($app) {
+
+	$app->get('/images/{filename}/{ext}', function ($filename, $ext) {
+	    $path = storage_path('images/user/'.$filename.'.'.$ext);
+	    if (!File::exists($path)) {
+	        abort(404);
+	    }
+	    $file = File::get($path);
+	    $type = File::mimeType($path);
+
+	    return response($file,200)->header('Content-Type', $type) ;
+	});
 
 
 	$app->get('tes/get-daftar-tes', 'Master\TesIqbalController@getDaftarTes');
@@ -34,6 +46,9 @@ $router->group(['prefix' => 'service'/*, 'middleware' => 'auth'*/], function ($a
 	$app->group(['prefix' => 'master/'/*, 'middleware' => 'auth2'*/], function ($app) {
 		/** AgamaM */
 		$app->get('agama/get-agama', 'ExampleController@getAgama');
+		$app->get('agama/get', 'Master\AgamaController@get');
+		$app->post('agama/save', 'Master\AgamaController@save');
+		$app->post('agama/delete', 'Master\AgamaController@delete');
 
 		/** Alamat*/
 		$app->get('alamat/get', 'Master\AlamatController@getAlamat');
@@ -98,6 +113,10 @@ $router->group(['prefix' => 'service'/*, 'middleware' => 'auth'*/], function ($a
         $app->post('produk/save-master-produk', 'Master\MasterController@saveMasterProduk');
         $app->post('produk/delete-master-produk', 'Master\MasterController@deleteProduk');
 
+		$app->get('produk/get', 'Master\ProdukController @get');
+		$app->post('produk/save', 'Master\ProdukController @save');
+		$app->post('produk/delete', 'Master\ProdukController @delete');
+
 		/** Master*/
 		$app->get('pegawai/get-daftar-pegawai', 'Master\MasterController@getDaftarPegawai');
 		$app->post('pegawai/save-pegawai', 'Master\MasterController@savePegawai');
@@ -123,6 +142,12 @@ $router->group(['prefix' => 'service'/*, 'middleware' => 'auth'*/], function ($a
 		$app->get('print/tes2', 'Master\PrintController@displayReport');
 		$app->get('print/tes3', 'Master\PrintController@pdf2');
 		$app->get('print/tes4', 'Master\PrintController@pdf3');
+
+
+		/**  Profile*/
+		$app->get('profile/upload-v1', 'Master\ProfileController@uploadPhoto');
+		$app->get('profile/upload-v2', 'Master\ProfileController@UploadPhotoProfile');
+
 	});
 
 	$app->group(['prefix' => 'transaksi/'/*, 'middleware' => 'authentication']*/],function ($app) {

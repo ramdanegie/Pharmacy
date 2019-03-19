@@ -9,12 +9,12 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-pegawai',
-  templateUrl: './pegawai.component.html',
-  styleUrls: ['./pegawai.component.scss'],
+  selector: 'app-agama',
+  templateUrl: './agama.component.html',
+  styleUrls: ['./agama.component.scss'],
   providers: [ConfirmationService]
 })
-export class PegawaiComponent implements OnInit {
+export class AgamaComponent implements OnInit {
 
   formGroup: FormGroup;
   displayDialog: boolean;
@@ -33,23 +33,15 @@ export class PegawaiComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getCombo()
     this.formGroup = this.fb.group({
-      'KdPegawai': new FormControl(null),
-      'NamaPegawai': new FormControl(null),
       'KdAgama': new FormControl(null),
-      'NoTelpon': new FormControl(null),
-      'Alamat': new FormControl(null),
-      'KdJenisKelamin': new FormControl(null),
-      'NIK': new FormControl(null),
-      'TglLahir': new FormControl(this.now),
+      'Agama': new FormControl(null)
     });
-
+   
     this.getData()
   }
 
   showDialogToAdd() {
-
     this.resetForm()
     this.displayDialog = true;
   }
@@ -72,32 +64,32 @@ export class PegawaiComponent implements OnInit {
     });
   }
   getData() {
-    this.httpService.get('master/pegawai/get-daftar-pegawai').subscribe(data => {
-      if( data.data.length > 0){
-        for (let i = 0; i <  data.data.length; i++) {
-          const element =  data.data[i];
-          element.TglLahir = moment(new Date(element.TglLahir)).format('DD-MM-YYYY')
+    this.httpService.get('master/agama/get').subscribe(data => {
+      // if( data.data.length > 0){
+      //   for (let i = 0; i <  data.data.length; i++) {
+      //     const element =  data.data[i];
+      //     element.TglLahir = moment(new Date(element.TglLahir)).format('DD-MM-YYYY')
           
-        }
-      }
+      //   }
+      // }
       this.dataSource = data.data
     })
 
   }
   save() {
 
-    let json = {
-      'KdPegawai': this.formGroup.get('KdPegawai').value,
-      'KdAgama': this.formGroup.get('KdAgama').value,
-      'NamaPegawai': this.formGroup.get('NamaPegawai').value,
-      'NoTelpon': this.formGroup.get('NoTelpon').value,
-      'NIK': this.formGroup.get('NIK').value,
-      'KdJenisKelamin': this.formGroup.get('KdJenisKelamin').value,
-      'Alamat': this.formGroup.get('Alamat').value,
-      'TglLahir': moment(this.formGroup.get('TglLahir').value).format('YYYY-MM-DD')
-    }
+    // let json = {
+    //   'KdAgan': this.formGroup.get('KdPegawai').value,
+    //   'KdAgama': this.formGroup.get('KdAgama').value,
+    //   'NamaPegawai': this.formGroup.get('NamaPegawai').value,
+    //   'NoTelpon': this.formGroup.get('NoTelpon').value,
+    //   'NIK': this.formGroup.get('NIK').value,
+    //   'KdJenisKelamin': this.formGroup.get('KdJenisKelamin').value,
+    //   'Alamat': this.formGroup.get('Alamat').value,
+    //   'TglLahir': moment(this.formGroup.get('TglLahir').value).format('YYYY-MM-DD')
+    // }
 
-    this.httpService.post('master/pegawai/save-pegawai', json).subscribe(data => {
+    this.httpService.post('master/agama/save', this.formGroup.value).subscribe(data => {
       this.getData()
       this.resetForm()
     }, error => {
@@ -106,25 +98,20 @@ export class PegawaiComponent implements OnInit {
 
   }
   edit(e) {
-    this.formGroup.get('KdPegawai').setValue(e.KdPegawai);
-    this.formGroup.get('NamaPegawai').setValue(e.NamaPegawai);
     this.formGroup.get('KdAgama').setValue(e.KdAgama);
-    this.formGroup.get('NoTelpon').setValue(e.NoTelpon);
-    this.formGroup.get('NIK').setValue(e.NIK);
-    this.formGroup.get('KdJenisKelamin').setValue(e.KdJenisKelamin);
-    this.formGroup.get('Alamat').setValue(e.Alamat);
-    this.formGroup.get('TglLahir').setValue(new Date(e.TglLahir));
+    this.formGroup.get('Agama').setValue(e.Agama);
+
     this.displayDialog = true;
   }
   hapus(e) {
 
     let jsonDelete = {
-      'KdPegawai': e.KdPegawai
+      'KdAgama': e.KdAgama
     }
     this.confirmationService.confirm({
       message: 'Yakin mau menghapus data?',
       accept: () => {
-        this.httpService.post('master/pegawai/delete-pegawai', jsonDelete).subscribe(data => {
+        this.httpService.post('master/agama/delete', jsonDelete).subscribe(data => {
           this.getData()
           this.resetForm()
         }, error => {
@@ -134,14 +121,16 @@ export class PegawaiComponent implements OnInit {
     })
   }
   resetForm() {
-    this.formGroup.get('KdPegawai').reset()
-    this.formGroup.get('NamaPegawai').reset()
-    this.formGroup.get('KdAgama').reset()
-    this.formGroup.get('NoTelpon').reset()
-    this.formGroup.get('NIK').reset()
-    this.formGroup.get('KdJenisKelamin').reset()
-    this.formGroup.get('Alamat').reset()
+    // this.formGroup.get('KdPegawai').reset()
+    // this.formGroup.get('NamaPegawai').reset()
+    // this.formGroup.get('KdAgama').reset()
+    // this.formGroup.get('NoTelpon').reset()
+    // this.formGroup.get('NIK').reset()
+    // this.formGroup.get('KdJenisKelamin').reset()
+    // this.formGroup.get('Alamat').reset()
 
+    this.formGroup.reset()
 
   }
 }
+

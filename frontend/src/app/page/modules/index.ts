@@ -19,6 +19,7 @@ export * from './master/supplier/supplier.component';
 export * from './master/toko/toko.component';
 export * from './master/kode-generate/kode-generate.component';
 export * from './master/map-produk-to-satuan-standar/map-produk-to-satuan-standar.component';
+export * from './master/agama/agama.component';
 export * from './master/profile/profile.component';
 // transaksi
 export * from './transaksi/penerimaan-barang-supplier/penerimaan-barang-supplier.component';

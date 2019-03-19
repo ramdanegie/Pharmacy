@@ -66,7 +66,7 @@ class ListGenericController extends Controller{
 
 		$KdProfile = $request->header('KdProfile');
 		$kdDepartemen = $request->header('KdDepartemen');
-		if($table == 'JenisKelamin_M' || $table == 'TitlePegawai_M' || $table == 'TitlePasien_M'){
+		if($table == '_MJenisKelamin' || $table == 'TitlePegawai_M' || $table == 'TitlePasien_M'){
 			$KdProfile = 3;
 			$kdDepartemen = $kdDepartemen;
 
@@ -270,7 +270,7 @@ class ListGenericController extends Controller{
 		$data = $model->queryTable($KdProfile, $KdDepartemen);
 
 		if( $request->get( 'KdDetailJenisProduk' ) == '20' ) {
-			$data = $data->where( 'Produk_M.KdDetailJenisProduk',20 );
+			$data = $data->where( '_MProduk.KdDetailJenisProduk',20 );
 		}
 		$page= $request->get('page') != '' ? (int)$request->get('page') : 1;
 		$rows= $request->get('rows') != '' ? (int)$request->get('rows') : 10;
@@ -356,9 +356,9 @@ class ListGenericController extends Controller{
 		$model = new $path;
 		$data = $model->queryMap($KdProfile, $KdDepartemen, $condition, $where);
 		if( $request->get( 'KdDetailJenisProduk' ) == 23 ) {
-			$data = $data->where( 'Produk_M.KdDetailJenisProduk', 23 );
+			$data = $data->where( '_MProduk.KdDetailJenisProduk', 23 );
 		} else if( $request->get( 'KdDetailJenisProduk' ) == 20 ) {
-			$data = $data->where( 'Produk_M.KdDetailJenisProduk', 20 );
+			$data = $data->where( '_MProduk.KdDetailJenisProduk', 20 );
 		}
 		$page= $request->get('page') != '' ? (int)$request->get('page') : 1;
 		$rows= $request->get('rows') != '' ? (int)$request->get('rows') : 10;

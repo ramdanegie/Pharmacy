@@ -10,8 +10,9 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Model\Master\DetailJenisProduk_M;
-use App\Model\Master\JenisKelamin_M;
+use App\Model\Master\_MJenisKelamin;
 use App\Model\Master\JenisProduk_M;
+use App\Model\Master\M_JenisKelamin;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;
 use App\Traits\Core;
@@ -24,10 +25,10 @@ class  JenisKelaminController extends Controller
 
 	public function get(Request $request)
 	{
-		$data = DB::table('jeniskelamin_m')
+		$data = DB::table('M_JenisKelamin')
 			->select('*')
-			->where('statusenabled', true)
-			->orderBy('jeniskelamin')
+			->where('Flag', true)
+			->orderBy('JenisKelamin')
 			->get();
 
 		$result['code'] = 200;
@@ -41,16 +42,15 @@ class  JenisKelaminController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-
-			$idMax = JenisKelamin_M::max('id') + 1;
-			if ($request['idJenisKelamin'] == null) {
-				$log = new JenisKelamin_M();
-				$log->id = $idMax;
-				$log->statusenabled = true;
+			if ($request['KdJenisKelamin'] == null) {
+				$idMax =(int) M_JenisKelamin::max('KdJenisKelamin') + 1;
+				$log = new M_JenisKelamin();
+				$log->KdJenisKelamin = $idMax;
+				$log->Flag = true;
 			} else {
-				$log = JenisKelamin_M::where('id', $request['idJenisKelamin'])->first();
+				$log = M_JenisKelamin::where('KdJenisKelamin', $request['KdJenisKelamin'])->first();
 			}
-			$log->jeniskelamin = $request['jenisKelamin'];
+			$log->JenisKelamin = $request['JenisKelamin'];
 			$log->save();
 
 			$transStatus = 'true';
@@ -66,7 +66,7 @@ class  JenisKelaminController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Simpan Jenis Kelamin Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -81,8 +81,8 @@ class  JenisKelaminController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-			JenisKelamin_M::where('id', $request['idJenisKelamin'])->update(
-				['statusenabled' => false]
+			M_JenisKelamin::where('KdJenisKelamin', $request['KdJenisKelamin'])->update(
+				['Flag' => false]
 			);
 
 			$transStatus = 'true';
@@ -98,7 +98,7 @@ class  JenisKelaminController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Hapus Jenis Kelamin Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,

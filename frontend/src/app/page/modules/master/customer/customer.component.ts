@@ -35,13 +35,13 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup = this.fb.group({
-      'idCustomer': new FormControl(null),
-      'namaCustomer': new FormControl(null),
-      'kdAlamat': new FormControl(null),
-      'noHp': new FormControl(null),
-      'noTlp': new FormControl(null)
+      'KdCustomer': new FormControl(null),
+      'Customer': new FormControl(null),
+      'Alamat': new FormControl(null),
+      'NoTelp': new FormControl(null),
+      'Email': new FormControl(null)
     });
-    this.getCombo()
+    // this.getCombo()
     this.getData()
   }
   getCombo(){
@@ -75,21 +75,21 @@ export class CustomerComponent implements OnInit {
       this.getData()
       this.resetForm()
     }, error => {
-      this.alertService.error('Error', JSON.stringify(error));
+      // this.alertService.error('Error', JSON.stringify(error));
     });
 
   }
   edit(e) {
-    this.formGroup.get('idCustomer').setValue(e.id);
-    this.formGroup.get('namaCustomer').setValue(e.namacustomer);
-    this.formGroup.get('kdAlamat').setValue(e.alamatfk);
-    this.formGroup.get('noHp').setValue(e.nohp);
-    this.formGroup.get('noTlp').setValue(e.notlp);
+    this.formGroup.get('KdCustomer').setValue(e.KdCustomer);
+    this.formGroup.get('Customer').setValue(e.Customer);
+    this.formGroup.get('Alamat').setValue(e.Alamat);
+    this.formGroup.get('NoTelp').setValue(e.NoTelp);
+    this.formGroup.get('Email').setValue(e.Email);
     this.displayDialog = true;
   }
   hapus(e) {
     let jsonDelete = {
-      'idCustomer': e.id
+      'KdCustomer': e.KdCustomer
     }
     this.confirmationService.confirm({
       message: 'Yakin mau menghapus data?',
@@ -98,7 +98,7 @@ export class CustomerComponent implements OnInit {
           this.getData()
           this.resetForm()
         }, error => {
-          this.alertService.error('Error', JSON.stringify(error));
+          // this.alertService.error('Error', JSON.stringify(error));
         });
       }
     })

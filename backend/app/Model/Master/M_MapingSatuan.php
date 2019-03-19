@@ -3,18 +3,18 @@
  * Created by IntelliJ IDEA.
  * User: Egie Ramdan
  * Date: 23/02/2019
- * Time: 10.31
+ * Time: 19.40
  */
 namespace App\Model\Master;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Toko_M extends Model
+class M_MapingSatuan extends Model
 {
-	protected $table = 'toko_m';
+	protected $table = 'M_MapingSatuan';
 	public $timestamps = false;
 	public $incrementing = false;
-	protected $primaryKey = 'id';
+	protected $primaryKey = 'Kode';
 //	protected $fillable = [
 //		'id',
 //		'kdprofile',
@@ -27,7 +27,7 @@ class Toko_M extends Model
 //	];
 	public static function queryTable($request)
 	{
-		$table = 'toko_m';
+		$table = 'M_MapingSatuan';
 		$param['table_from'] = $table;
 		$param['select'] = array($table . '.*');
 		$param['label'] = array();

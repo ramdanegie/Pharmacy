@@ -9,10 +9,11 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Model\Master\Pegawai_M;
+use App\Model\Master\_MPegawai;
+use App\Model\Master\M_Pegawai;
 use App\Model\Master\PegawaiM;
-use App\Model\Standar\LoginUser_S;
-use App\Model\Master\Produk_M;
+use App\Model\Standar\M_LoginUser;
+use App\Model\Master\_MProduk;
 use Illuminate\Http\Request;
 use App\Traits\Core;
 use App\Traits\JsonResponse;
@@ -40,13 +41,13 @@ class  MasterController extends Controller
 	{
 		DB::beginTransaction();
 		try{
-		$idMax = LoginUser_S::max('id') + 1;
+		$idMax = MLoginUser_::max('id') + 1;
 		if($request['idUser'] == null){
-			$log = new LoginUser_S();
+			$log = new MLoginUser_();
 			$log->id = $idMax;
 			$log->statusenabled = true;
 		}else{
-			$log = LoginUser_S::where('id',$request['idUser'])->first();
+			$log = MLoginUser_::where('id',$request['idUser'])->first();
 		}
 		if(isset($request['kataSandi'])){
 			$log->katasandi= $request['kataSandi'];
@@ -81,13 +82,13 @@ class  MasterController extends Controller
 	}
 	public function getDaftarPegawai (Request $request)
 	{
-		$data = DB::table('pegawai_m as pg')
-			->leftJoin('alamat_m as alm','alm.id','=','pg.alamatfk')
-			->leftJoin('jeniskelamin_m as jk','jk.id','=','pg.jeniskelaminfk')
-			->select('pg.*','alm.alamat','alm.provinsi','alm.kota','alm.kabupaten','alm.kecamatan',
-				'jk.jeniskelamin')
-			->where ('pg.statusenabled',true)
-			->orderBy('pg.namalengkap')
+		$data = DB::table('M_Pegawai as pg')
+			->leftJoin('M_Agama as agm','agm.KdAgama','=','pg.KdAgama')
+			->leftJoin('M_JenisKelamin as jk','jk.KdJenisKelamin','=','pg.KdJenisKelamin')
+			->select('pg.*','agm.Agama',
+				'jk.JenisKelamin')
+			->where ('pg.Flag',true)
+			->orderBy('pg.NamaPegawai')
 			->get();
 
 		$result['code'] = 200;
@@ -100,21 +101,22 @@ class  MasterController extends Controller
 	{
 		DB::beginTransaction();
 		try{
-			$idMax = Pegawai_M::max('id') + 1;
-			if($request['idPegawai'] == null){
-				$log = new Pegawai_M();
-				$log->id = $idMax;
-				$log->statusenabled = true;
+			$idMax = (int)M_Pegawai::max('KdPegawai') + 1;
+			if($request['KdPegawai'] == null){
+				$log = new M_Pegawai();
+				$log->KdPegawai = $idMax;
+				$log->Flag = true;
 			}else{
-				$log = Pegawai_M::where('id',$request['idPegawai'])->first();
+				$log = M_Pegawai::where('KdPegawai',$request['KdPegawai'])->first();
 			}
-			$log->namalengkap= $request['namaLengkap'];
-			$log->namapanggilan= $request['namaPanggilan'];
-			$log->nohp= $request['noHp'];
-			$log->notlp= $request['noTlp'];
-			$log->alamatfk= $request['kdAlamat'];
-			$log->jeniskelaminfk= $request['kdJenisKelamin'];
-			$log->tgllahir= $request['tglLahir'];
+			$log->NamaPegawai= $request['NamaPegawai'];
+			$log->KdAgama= $request['KdAgama'];
+			$log->KdJenisKelamin= $request['KdJenisKelamin'];
+			$log->NoTelpon= $request['NoTelpon'];
+			$log->Alamat= $request['Alamat'];
+			$log->NIK= $request['NIK'];
+
+			$log->TglLahir= $request['TglLahir'];
 			$log->save();
 
 			$transStatus = 'true';
@@ -122,7 +124,7 @@ class  MasterController extends Controller
 			$transStatus = 'false';
 		}
 		if ($transStatus == 'true') {
-			$transMessage = "Sukses";
+			$transMessage = "Simpan Pegawai";
 			DB::commit();
 			$result = array(
 				'status' => 200,
@@ -130,7 +132,7 @@ class  MasterController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Simpan Pegawai Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -142,20 +144,25 @@ class  MasterController extends Controller
 	}
 	public function getCombo (Request $request)
 	{
-		$alamat = DB::table('alamat_m')
+//		$alamat = DB::table('alamat_m')
+//			->select('*')
+//			->where ('statusenabled',true)
+//			->orderBy('alamat')
+//			->get();
+		$jk = DB::table('M_JenisKelamin')
 			->select('*')
-			->where ('statusenabled',true)
-			->orderBy('alamat')
+			->where ('FLag',true)
+			->orderBy('JenisKelamin')
 			->get();
-		$jk = DB::table('jeniskelamin_m')
+		$agama = DB::table('M_Agama')
 			->select('*')
-			->where ('statusenabled',true)
-			->orderBy('id')
+			->where ('FLag',true)
+			->orderBy('Agama')
 			->get();
 
 		$result['code'] = 200;
 		$result['data'] = array(
-			'alamat' => $alamat,
+			'agama' => $agama,
 			'jeniskelamin' => $jk,
 		);
 		$result['as'] = "ramdanegie";
@@ -166,8 +173,8 @@ class  MasterController extends Controller
 	{
 		DB::beginTransaction();
 		try{
-			Pegawai_M::where('id',$request['idPegawai'])->update(
-				[ 'statusenabled' =>  false]
+			M_Pegawai::where('KdPegawai',$request['KdPegawai'])->update(
+				[ 'Flag' =>  false]
 			);
 			$transStatus = 'true';
 		} catch (\Exception $e) {
@@ -182,7 +189,7 @@ class  MasterController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan";
+			$transMessage = "Hapus Pegawai Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -219,13 +226,13 @@ class  MasterController extends Controller
     {
         DB::beginTransaction();
         try{
-            $idMax = Produk_M ::max('id') + 1;
+            $idMax = _MProduk ::max('id') + 1;
             if($request['id'] == null){
-                $log = new Produk_M();
+                $log = new _MProduk();
                 $log->id = $idMax;
                 $log->statusenabled = true;
             }else{
-                $log = Produk_m::where('id',$request['id'])->first();
+                $log = _MProduk::where('id',$request['id'])->first();
             }
             $log->namaproduk= $request['namaProduk'];
             $log->kdexternal= $request['kdExternal'];
@@ -261,7 +268,7 @@ class  MasterController extends Controller
     {
         DB::beginTransaction();
         try{
-            Produk_M::where('id',$request['id'])->update(
+            _MProduk::where('id',$request['id'])->update(
                 [ 'statusenabled' =>  false]
             );
             $transStatus = 'true';

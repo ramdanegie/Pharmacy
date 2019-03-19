@@ -9,24 +9,24 @@ namespace App\Model\Standar;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KelompokUser_S extends Model
+class M_KelompokUser extends Model
 {
-	protected $table = 'kelompokuser_s';
+	protected $table = 'M_KelompokUser';
 	public $timestamps = false;
 	public $incrementing = false;
-	protected $primaryKey = 'id';
+	protected $primaryKey = 'KdKelompokUser';
 //	protected $fillable = [
 //
 //	];
 
 	public static function queryTable($request, $KdProfile)
 	{
-		$table = 'kelompokuser_s';
+		$table = 'M_KelompokUser';
 		$param['table_from'] = $table;
 		$param['select'] = array($table . '.*');
 		$param['label'] = array();
 
-		$param['where'][0]['fieldname'] = $table . '.statusenabled';
+		$param['where'][0]['fieldname'] = $table . '.Flag';
 		$param['where'][0]['operand'] = '=';
 		$param['where'][0]['is'] = true;
 		return $param;

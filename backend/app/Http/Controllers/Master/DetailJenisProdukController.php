@@ -10,7 +10,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Model\Master\Alamat_M;
-use App\Model\Master\Customer_M;
+use App\Model\Master\_MCustomer;
 use App\Model\Master\DetailJenisProduk_M;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;

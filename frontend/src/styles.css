@@ -213,3 +213,9 @@ body .ui-progressbar {
     max-width: 48px;
     background-color: #FFCB00;
   }
+  .ui-datatable table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+font-size: 12px;
+  }

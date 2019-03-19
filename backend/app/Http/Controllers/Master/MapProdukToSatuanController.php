@@ -9,8 +9,8 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Model\Master\MapProdukToSatuanStandar_M;
-use App\Model\Master\SatuanStandar_M;
+use App\Model\Master\_MMapingSatuan;
+use App\Model\Master\_MSatuan;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;
 use App\Traits\Core;
@@ -47,13 +47,13 @@ class  MapProdukToSatuanController extends Controller
 	{
 		DB::beginTransaction();
 		try{
-			$idMax = MapProdukToSatuanStandar_M::max('id') + 1;
+			$idMax = _MMapingSatuan::max('id') + 1;
 			if($request['idMap'] == null){
-				$log = new MapProdukToSatuanStandar_M();
+				$log = new _MMapingSatuan();
 				$log->id = $idMax;
 				$log->statusenabled = true;
 			}else{
-				$log = MapProdukToSatuanStandar_M::where('id',$request['idMap'])->first();
+				$log = _MMapingSatuan::where('id',$request['idMap'])->first();
 			}
 			$log->produkfk= $request['produk']['kdProduk'];
 			$log->satuanasalfk= $request['kdSatuanAsal'];
@@ -89,7 +89,7 @@ class  MapProdukToSatuanController extends Controller
 		DB::beginTransaction();
 		try{
 
-			MapProdukToSatuanStandar_M::where('id',$request['idMap'])->update(
+			_MMapingSatuan::where('id',$request['idMap'])->update(
 				[ 'statusenabled' => false ]
 			);
 

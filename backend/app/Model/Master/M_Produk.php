@@ -10,20 +10,20 @@ namespace App\Model\Master;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Produk_M extends Model
+class M_Produk extends Model
 {
-    protected $table = 'produk_m';
+    protected $table = 'M_Produk';
     public $timestamps = false;
     public $incrementing = false;
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'id',
-        'namaproduk',
-        'kdexternal',
-        'detailjenisprodukfk',
-        'satuanstandardfk',
-        'statusenabled'
-    ];
+    protected $primaryKey = 'KdProduk';
+//    protected $fillable = [
+//        'id',
+//        'namaproduk',
+//        'kdexternal',
+//        'detailjenisprodukfk',
+//        'satuanstandardfk',
+//        'statusenabled'
+//    ];
     public static function queryTable($request){
         $table = 'produk_m';
         $param['table_from']= $table;
