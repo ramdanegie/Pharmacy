@@ -10,10 +10,11 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Model\Master\DetailJenisProduk_M;
-use App\Model\Master\JenisKelamin_M;
+use App\Model\Master\_MJenisKelamin;
 use App\Model\Master\JenisProduk_M;
 use App\Model\Master\JenisTransaksi_M;
-use App\Model\Master\SatuanStandar_M;
+use App\Model\Master\_MSatuan;
+use App\Model\Master\M_Satuan;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;
 use App\Traits\Core;
@@ -26,10 +27,10 @@ class  SatuanStandarController extends Controller
 
 	public function get(Request $request)
 	{
-		$data = DB::table('satuanstandard_m')
+		$data = DB::table('M_Satuan')
 			->select('*')
-			->where('statusenabled', true)
-			->orderBy('satuanstandard')
+			->where('Flag', true)
+			->orderBy('Satuan')
 			->get();
 
 		$result['code'] = 200;
@@ -44,15 +45,15 @@ class  SatuanStandarController extends Controller
 		DB::beginTransaction();
 		try {
 
-			$idMax = SatuanStandar_M::max('id') + 1;
-			if ($request['idSatuanStandar'] == null) {
-				$log = new SatuanStandar_M();
-				$log->id = $idMax;
-				$log->statusenabled = true;
+			if ($request['KdSatuan'] == null) {
+				$idMax = (int)M_Satuan::max('KdSatuan') + 1;
+				$log = new M_Satuan();
+				$log->KdSatuan = $idMax;
+				$log->Flag = true;
 			} else {
-				$log = SatuanStandar_M::where('id', $request['idSatuanStandar'])->first();
+				$log = M_Satuan::where('KdSatuan', $request['KdSatuan'])->first();
 			}
-			$log->satuanstandard = $request['satuanStandar'];
+			$log->Satuan = $request['Satuan'];
 			$log->save();
 
 			$transStatus = 'true';
@@ -68,7 +69,7 @@ class  SatuanStandarController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Simpan Satuan Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -83,8 +84,8 @@ class  SatuanStandarController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-			SatuanStandar_M::where('id', $request['idSatuanStandar'])->update(
-				['statusenabled' => false]
+			M_Satuan::where('KdSatuan', $request['KdSatuan'])->update(
+				['Flag' => false]
 			);
 
 			$transStatus = 'true';
@@ -100,7 +101,7 @@ class  SatuanStandarController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Hapus Satuan Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,

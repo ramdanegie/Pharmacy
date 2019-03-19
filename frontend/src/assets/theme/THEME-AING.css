@@ -268,11 +268,11 @@ body .ui-inputtext {
     body .ui-button:enabled:focus {
       border: 1px solid pink;
       outline: 0;
-      -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-      -moz-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      -webkit-box-shadow: 0 0 0 0.2rem  rgba(255, 0, 212, 0.432);
+      -moz-box-shadow: 0 0 0 0.2rem rgba(255, 0, 212, 0.432);
+      box-shadow: 0 0 0 0.2rem rgba(255, 0, 212, 0.432);
       /* outline: 0 none; */
-      background-color: #F20075; }
+      background-color: #ffa900; }
     body .ui-button:enabled:active {
       background-color: #3e3e3d; }
     body .ui-button.ui-button-text-only .ui-button-text {
@@ -1259,7 +1259,7 @@ background: #ffffff; }
       margin-right: .5em;
       color: #ffffff; }
     body .ui-fieldset .ui-fieldset-legend:hover {
-      background-color: #F20075;
+      background-color: #ffa900;
       }
       body .ui-fieldset .ui-fieldset-legend:hover .ui-fieldset-toggler {
         color: #ffffff; }

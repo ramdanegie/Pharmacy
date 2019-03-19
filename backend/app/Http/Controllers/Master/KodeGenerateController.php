@@ -10,11 +10,11 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Model\Master\DetailJenisProduk_M;
-use App\Model\Master\JenisKelamin_M;
+use App\Model\Master\_MJenisKelamin;
 use App\Model\Master\JenisProduk_M;
 use App\Model\Master\JenisTransaksi_M;
 use App\Model\Master\KodeGenerate;
-use App\Model\Master\SatuanStandar_M;
+use App\Model\Master\_MSatuan;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;
 use App\Traits\Core;

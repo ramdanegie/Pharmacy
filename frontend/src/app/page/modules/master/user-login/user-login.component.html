@@ -24,7 +24,7 @@
                 <div class="ui-g-12 ui-md-12">
                     <label class="label-web-profile" for="input">Pegawai </label>
                     <p-autoComplete formControlName="pegawai" placeholder="Cari Nama Pegawai" [minLength]="1"
-                        [suggestions]="listPegawai" (completeMethod)="getPegawaiByName($event)" field="namalengkap">
+                        [suggestions]="listPegawai" (completeMethod)="getPegawaiByName($event)" field="NamaPegawai">
                     </p-autoComplete>
                     <!-- <input id="input" type="text" [(ngModel)]="item.NamaLengkap" readonly pInputText /> -->
                 </div>
@@ -73,9 +73,9 @@
             <p-dataTable [globalFilter]="gs" [value]="listData" [rows]="10" [paginator]="true" [pageLinks]="3"
                 [rowsPerPageOptions]="[5,10,20]" selectionMode="single" [(selection)]="selected"
                 (onRowSelect)="onRowSelect($event)">
-                <p-column field="namalengkap" header="Nama Pegawai"></p-column>
-                <p-column field="namauser" header="Nama User"></p-column>
-                <p-column field="kelompokuser" header="Kelompok User"></p-column>
+                <p-column field="NamaPegawai" header="Nama Pegawai"></p-column>
+                <p-column field="NamaUser" header="Nama User"></p-column>
+                <p-column field="KelompokUser" header="Kelompok User"></p-column>
             </p-dataTable>
         </div>
     </div>

@@ -172,8 +172,8 @@ Trait Crud_Web
             $table_join = $this->param['table_join'];
 
             switch($this->param['COLUMN_NAME']){
-                case 'KdPegawaiKepala' :$table_join = 'Pegawai_M'; $column_join = 'KdPegawai'; break;
-                case 'KdPegawaiPembuat' :$table_join = 'Pegawai_M'; $column_join = 'KdPegawai'; break;
+                case 'KdPegawaiKepala' :$table_join = '_MPegawai'; $column_join = 'KdPegawai'; break;
+                case 'KdPegawaiPembuat' :$table_join = '_MPegawai'; $column_join = 'KdPegawai'; break;
             }
 
             $join->on($table_join.'.'.$column_join, '=', $this->param['table'].'.'.$this->param['COLUMN_NAME'])->where($table_join.'.KdProfile', '=', $this->param['KdProfile']);

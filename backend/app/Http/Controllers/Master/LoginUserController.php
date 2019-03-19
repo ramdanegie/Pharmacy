@@ -8,7 +8,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Model\Standar\LoginUser_S;
+use App\Model\Standar\M_LoginUser;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;
 use App\Traits\Core;
@@ -25,12 +25,12 @@ class  LoginUserController extends Controller
 
 	public function getDaftarLoginUser (Request $request)
 	{
-		$data = DB::table('loginuser_s as log')
-			->join('kelompokuser_s as kl','log.objectkelompokuserfk','=','kl.id')
-			->join('pegawai_m as pg','log.objectpegawaifk','=','pg.id')
-			->select('log.id','log.namauser','log.katasandi','log.objectkelompokuserfk','log.objectpegawaifk',
-				'kl.kelompokuser','pg.namalengkap')
-			->orderBy('pg.namalengkap')
+		$data = DB::table('M_LoginUser as log')
+			->join('M_KelompokUser as kl','log.KdKelompokUser','=','kl.KdKelompokUser')
+			->join('M_Pegawai as pg','log.KdPegawai','=','pg.KdPegawai')
+			->select('log.KdUser','log.NamaUser','log.KataSandi','log.KdKelompokUser','log.KdPegawai',
+				'kl.KelompokUser','pg.NamaPegawai')
+			->orderBy('pg.NamaPegawai')
 			->get();
 
 		$result['code'] = 200;
@@ -47,20 +47,29 @@ class  LoginUserController extends Controller
 	{
 		DB::beginTransaction();
 		try{
-			$idMax = LoginUser_S::max('id') + 1;
+			$idMax = (int) M_LoginUser::max('KdUser') + 1;
 			if($request['idUser'] == null){
-				$log = new LoginUser_S();
-				$log->id = $idMax;
-				$log->statusenabled = true;
+				$exist = M_LoginUser::where('NamaUser',$request['namaUser'])->get()->count();
+				if($exist > 1){
+					$result = array(
+						'status' => 500,
+						'message'  => 'Nama User sudah ada',
+						'as' => 'ramdanegie',
+					);
+					return response()->json($result,$result['status']);
+				}
+				$log = new M_LoginUser();
+				$log->KdUser = $idMax;
+				$log->Flag= true;
 			}else{
-				$log = LoginUser_S::where('id',$request['idUser'])->first();
+				$log = M_LoginUser::where('KdUser',$request['idUser'])->first();
 			}
 			if(isset($request['kataSandi'])){
-				$log->katasandi= $this->generateSHA1( $request['kataSandi']);
+				$log->KataSandi= $this->generateSHA1( $request['kataSandi']);
 			}
-			$log->namauser= $request['namaUser'];
-			$log->objectpegawaifk= $request['pegawai']['id'];
-			$log->objectkelompokuserfk= $request['kdKelompokUser'];
+			$log->NamaUser= $request['namaUser'];
+			$log->KdPegawai= $request['pegawai']['KdPegawai'];
+			$log->KdKelompokUser= $request['kdKelompokUser'];
 			$log->save();
 
 			$transStatus = 'true';
@@ -76,7 +85,7 @@ class  LoginUserController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Simpan Login User Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -91,8 +100,8 @@ class  LoginUserController extends Controller
 		DB::beginTransaction();
 		try{
 
-			 LoginUser_S::where('id',$request['idUser'])->update(
-			 	['statusenabled' =>  false]
+			 M_LoginUser::where('id',$request['idUser'])->update(
+			 	['Flag' =>  false]
 			 );
 
 			$transStatus = 'true';

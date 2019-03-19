@@ -9,12 +9,12 @@ namespace App\Model\Master;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Supplier_M extends Model
+class M_Satuan extends Model
 {
-	protected $table = 'supplier_m';
+	protected $table = 'M_Satuan';
 	public $timestamps = false;
 	public $incrementing = false;
-	protected $primaryKey = 'id';
+	protected $primaryKey = 'KdSatuan';
 //	protected $fillable = [
 //		'id',
 //		'kdprofile',
@@ -27,7 +27,7 @@ class Supplier_M extends Model
 //	];
 	public static function queryTable($request)
 	{
-		$table = 'supplier_m';
+		$table = 'satuanstandard_m';
 		$param['table_from'] = $table;
 		$param['select'] = array($table . '.*');
 		$param['label'] = array();

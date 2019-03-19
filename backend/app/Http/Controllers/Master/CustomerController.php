@@ -10,7 +10,8 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Model\Master\Alamat_M;
-use App\Model\Master\Customer_M;
+use App\Model\Master\_MCustomer;
+use App\Model\Master\M_Customer;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;
 use App\Traits\Core;
@@ -23,11 +24,10 @@ class  CustomerController extends Controller
 
 	public function get(Request $request)
 	{
-		$data = DB::table('customer_m')
-			->leftJoin('alamat_m','alamat_m.id','=','customer_m.alamatfk')
-			->select('customer_m.*','alamat_m.alamat')
-			->where('customer_m.statusenabled', true)
-			->orderBy('customer_m.namacustomer')
+		$data = DB::table('M_Customer')
+			->select('*')
+			->where('Flag', true)
+			->orderBy('Customer')
 			->get();
 
 		$result['code'] = 200;
@@ -41,20 +41,19 @@ class  CustomerController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-//			return 	$log = Customer_M::where('id', $request['idCustomer'])->first();
 
-			$idMax = Customer_M::max('id') + 1;
-			if ($request['idCustomer'] == null) {
-				$log = new Customer_M();
-				$log->id = $idMax;
-				$log->statusenabled = true;
+			if ($request['KdCustomer'] == null) {
+				$idMax =(int) M_Customer::max('KdCustomer') + 1;
+				$log = new M_Customer();
+				$log->KdCustomer = $idMax;
+				$log->Flag = true;
 			} else {
-				$log = Customer_M::where('id', $request['idCustomer'])->first();
+				$log = M_Customer::where('KdCustomer', $request['KdCustomer'])->first();
 			}
-			$log->namacustomer = $request['namaCustomer'];
-			$log->alamatfk = $request['kdAlamat'];
-			$log->notlp = $request['noTlp'];
-			$log->nohp = $request['noHp'];
+			$log->Customer = $request['Customer'];
+			$log->Alamat = $request['Alamat'];
+			$log->NoTelp = $request['NoTelp'];
+			$log->Email = $request['Email'];
 			$log->save();
 
 			$transStatus = 'true';
@@ -70,7 +69,7 @@ class  CustomerController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Simpan Customer Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -85,8 +84,8 @@ class  CustomerController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-			Customer_M::where('id', $request['idCustomer'])->update(
-				['statusenabled' => false]
+			M_Customer::where('KdCustomer', $request['KdCustomer'])->update(
+				['Flag' => false]
 			);
 
 			$transStatus = 'true';
@@ -102,7 +101,7 @@ class  CustomerController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Hapus Customer Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,

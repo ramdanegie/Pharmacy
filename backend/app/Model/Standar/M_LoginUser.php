@@ -10,12 +10,12 @@ namespace App\Model\Standar;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LoginUser_S extends Model
+class M_LoginUser extends Model
 {
-	protected $table = 'loginuser_s';
+	protected $table = 'M_LoginUser';
 	public $timestamps = false;
 	public $incrementing = false;
-	protected $primaryKey = 'id';
+	protected $primaryKey = 'KdUser';
 //	protected $fillable = [
 //
 //	];

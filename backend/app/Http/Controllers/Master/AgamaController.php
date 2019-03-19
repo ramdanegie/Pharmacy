@@ -2,9 +2,10 @@
 /**
  * Created by IntelliJ IDEA.
  * User: Egie Ramdan
- * Date: 23/02/2019
- * Time: 09.26
+ * Date: 19/03/2019
+ * Time: 20.26
  */
+
 
 namespace App\Http\Controllers\Master;
 
@@ -14,6 +15,7 @@ use App\Model\Master\_MJenisKelamin;
 use App\Model\Master\JenisProduk_M;
 use App\Model\Master\JenisTransaksi_M;
 use App\Model\Master\_MSatuan;
+use App\Model\Master\M_Agama;
 use App\Model\Master\Toko_M;
 use App\Model\Standar\KelompokUser_S;
 use Illuminate\Http\Request;
@@ -21,17 +23,16 @@ use App\Traits\Core;
 use App\Traits\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
-class  TokoController extends Controller
+class  AgamaController extends Controller
 {
 	use JsonResponse;
 
 	public function get(Request $request)
 	{
-		$data = DB::table('toko_m as tk')
-			->leftJoin('alamat_m as alm','alm.id','=','tk.alamatfk')
-			->select('tk.*','alm.alamat','alm.kota','alm.kabupaten','alm.kecamatan')
-			->where('tk.statusenabled', true)
-			->orderBy('tk.namatoko')
+		$data = DB::table('M_Agama')
+			->select('*')
+			->where('Flag', true)
+			->orderBy('Agama')
 			->get();
 
 		$result['code'] = 200;
@@ -45,17 +46,15 @@ class  TokoController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-
-			$idMax = Toko_M::max('id') + 1;
-			if ($request['idToko'] == null) {
-				$log = new Toko_M();
-				$log->id = $idMax;
-				$log->statusenabled = true;
+			if ($request['KdAgama'] == null) {
+				$idMax = (int) M_Agama::max('KdAgama') + 1;
+				$log = new M_Agama();
+				$log->KdAgama = $idMax;
+				$log->Flag = true;
 			} else {
-				$log = Toko_M::where('id', $request['idToko'])->first();
+				$log = M_Agama::where('KdAgama', $request['KdAgama'])->first();
 			}
-			$log->namatoko = $request['namaToko'];
-			$log->alamatfk = $request['kdAlamat'];
+			$log->Agama = $request['Agama'];
 			$log->save();
 
 			$transStatus = 'true';
@@ -63,7 +62,7 @@ class  TokoController extends Controller
 			$transStatus = 'false';
 		}
 		if ($transStatus == 'true') {
-			$transMessage = "Simpan Toko";
+			$transMessage = "Simpan Agama";
 			DB::commit();
 			$result = array(
 				'status' => 200,
@@ -71,7 +70,7 @@ class  TokoController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Simpan Agama Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -86,8 +85,8 @@ class  TokoController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-			Toko_M::where('id', $request['idToko'])->update(
-				['statusenabled' => false]
+			M_Agama::where('KdAgama', $request['KdAgama'])->update(
+				['Flag' => false]
 			);
 
 			$transStatus = 'true';
@@ -95,7 +94,7 @@ class  TokoController extends Controller
 			$transStatus = 'false';
 		}
 		if ($transStatus == 'true') {
-			$transMessage = "Hapus Toko";
+			$transMessage = "Hapus Agama";
 			DB::commit();
 			$result = array(
 				'status' => 200,
@@ -103,7 +102,7 @@ class  TokoController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Hapus Agama Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,

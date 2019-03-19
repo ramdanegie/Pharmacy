@@ -8,7 +8,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Model\Standar\KelompokUser_S;
+use App\Model\Standar\M_KelompokUser;
 use Illuminate\Http\Request;
 use App\Traits\Core;
 use App\Traits\JsonResponse;
@@ -25,8 +25,8 @@ class  KelompokUserController extends Controller
 	public function getAll (Request $request)
 	{
 		// ini_set('memory_limit', '128M');
-		$kelUser = KelompokUser_S::where('statusenabled',true)
-			->select('id','kelompokuser');
+		$kelUser = M_KelompokUser::where('Flag',true)
+			->select('KdKelompokUser','KelompokUser');
 		$kelUser = $kelUser->get();
 		// $kelUser = DB::table('produk_m')
 		// 	->select('*')
@@ -46,15 +46,15 @@ class  KelompokUserController extends Controller
 	{
 		DB::beginTransaction();
 		try{
-			$idMax = KelompokUser_S::max('id') + 1;
+			$idMax = (int) M_KelompokUser::max('KdKelompokUser') + 1;
 			if($request['idKelompokUser'] == null){
-				$log = new KelompokUser_S();
-				$log->id = $idMax;
-				$log->statusenabled = true;
+				$log = new M_KelompokUser();
+				$log->KdKelompokUser = $idMax;
+				$log->Flag = true;
 			}else{
-				$log = KelompokUser_S::where('id',$request['idKelompokUser'])->first();
+				$log = M_KelompokUser::where('KdKelompokUser',$request['idKelompokUser'])->first();
 			}
-			$log->kelompokuser= $request['kelompokUser'];
+			$log->KelompokUser= $request['kelompokUser'];
 			$log->save();
 
 			$transStatus = 'true';
@@ -70,7 +70,7 @@ class  KelompokUserController extends Controller
 				'as' => 'ramdanegie',
 			);
 		} else {
-			$transMessage = "Terjadi Kesalahan saat menyimpan data";
+			$transMessage = "Simpan Kelompok User Gagal";
 			DB::rollBack();
 			$result = array(
 				'status' => 500,
@@ -85,8 +85,8 @@ class  KelompokUserController extends Controller
 		DB::beginTransaction();
 		try{
 
-			 KelompokUser_S::where('id',$request['idKelompokUser'])->update(
-			 	[ 'statusenabled' => false ]
+			 M_KelompokUser::where('KdKelompokUser',$request['idKelompokUser'])->update(
+			 	[ 'Flag' => false ]
 			 );
 
 			$transStatus = 'true';

@@ -3,18 +3,18 @@
  * Created by IntelliJ IDEA.
  * User: Egie Ramdan
  * Date: 23/02/2019
- * Time: 09.29
+ * Time: 10.31
  */
 namespace App\Model\Master;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JenisKelamin_M extends Model
+class M_Supplier extends Model
 {
-	protected $table = 'jeniskelamin_m';
+	protected $table = 'M_Supplier';
 	public $timestamps = false;
 	public $incrementing = false;
-	protected $primaryKey = 'id';
+	protected $primaryKey = 'KdSupplier';
 //	protected $fillable = [
 //		'id',
 //		'kdprofile',
@@ -25,15 +25,16 @@ class JenisKelamin_M extends Model
 //		'statusenabled',
 //		'norec'
 //	];
-	public static function queryTable($request){
-		$table = 'jeniskelamin_m';
-		$param['table_from']= $table;
-		$param['select']= array($table.'.*');
+	public static function queryTable($request)
+	{
+		$table = 'supplier_m';
+		$param['table_from'] = $table;
+		$param['select'] = array($table . '.*');
 		$param['label'] = array();
 
-		$param['where'][0]['fieldname']= $table.'.statusenabled';
-		$param['where'][0]['operand']= '=';
-		$param['where'][0]['is']= true;
+		$param['where'][0]['fieldname'] = $table . '.statusenabled';
+		$param['where'][0]['operand'] = '=';
+		$param['where'][0]['is'] = true;
 
 		return $param;
 	}

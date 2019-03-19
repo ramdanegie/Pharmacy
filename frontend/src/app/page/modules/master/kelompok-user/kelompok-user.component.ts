@@ -65,12 +65,12 @@ export class KelompokUserComponent implements OnInit {
   }
   edit(e) {
     this.formGroup.get('idKelompokUser').setValue(e.id);
-    this.formGroup.get('kelompokUser').setValue(e.kelompokuser);
+    this.formGroup.get('kelompokUser').setValue(e.KelompokUser);
     this.displayDialog = true;
   }
   hapus(e) {
     let jsonDelete = {
-      'idKelompokUser': e.id
+      'idKelompokUser': e.KdKelompokUser
     }
     this.confirmationService.confirm({
       message: 'Yakin mau menghapus data?',

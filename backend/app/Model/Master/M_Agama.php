@@ -10,29 +10,29 @@ namespace App\Model\Master;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Agama_M extends Model
+class M_Agama extends Model
 {
-    protected $table = 'agama_m';
+    protected $table = 'M_Agama';
     public $timestamps = false;
     public $incrementing = false;
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'id',
-        'kdprofile',
-        'agama',
-        'reportdisplay',
-        'kodeexternal',
-        'namaexternal',
-        'statusenabled',
-        'norec'
-    ];
+    protected $primaryKey = 'KdAgama';
+//    protected $fillable = [
+//        'id',
+//        'kdprofile',
+//        'agama',
+//        'reportdisplay',
+//        'kodeexternal',
+//        'namaexternal',
+//        'statusenabled',
+//        'norec'
+//    ];
     public static function queryTable($request){
-        $table = 'agama_m';
+        $table = 'M_Agama';
         $param['table_from']= $table;
         $param['select']= array($table.'.*');
         $param['label'] = array();
 
-        $param['where'][0]['fieldname']= $table.'.statusenabled';
+        $param['where'][0]['fieldname']= $table.'.Flag';
         $param['where'][0]['operand']= '=';
         $param['where'][0]['is']= true;
 
