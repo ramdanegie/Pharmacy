@@ -28,7 +28,7 @@ export const pathMaster = [
     { canActivate: [AuthGuard], path: 'kode-generate', component: nameComp.KodeGenerateComponent },
     { canActivate: [AuthGuard], path: 'map-produk-to-satuan-standar', component: nameComp.MapProdukToSatuanStandarComponent },
     { canActivate: [AuthGuard], path: 'agama', component: nameComp.AgamaComponent },
-    { canActivate: [AuthGuard], path: 'profile', component: pMaster.ProfileComponent },
+    { canActivate: [AuthGuard], path: 'profile', component: nameComp.ProfileComponent },
     // END MASTER
 
     // TRANSAKSI
@@ -45,11 +45,11 @@ export const pathMaster = [
     { canActivate: [AuthGuard], path: '404', component: nameComp.NotFoundComponent },
 
     //APOTIK
- { canActivate: [AuthGuard], path: 'tes', component: pMaster.TesComponent },
+    { canActivate: [AuthGuard], path: 'tes', component: nameComp.TesComponent },
 
     //END APPTIK
 
-    { canActivate: [AuthGuard], path: '404', component: pMaster.NotFoundComponent },
+    { canActivate: [AuthGuard], path: '404', component: nameComp.NotFoundComponent },
     { canActivate: [AuthGuard], path: '**', redirectTo: '/404' },
 
 ];
